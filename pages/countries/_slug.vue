@@ -7,10 +7,10 @@
 <script>
 export default {
 	name: "Country",
-	async asyncData({ error, $countryService }){
+	async asyncData({ error, route, $countryService }){
 		try{
 			const country = await $countryService.getCountryDetails({
-				code: 'IRQ'
+				code: route.params.slug
 			});
 			return {
 				country
