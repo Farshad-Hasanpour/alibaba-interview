@@ -1,11 +1,15 @@
 <template>
-	<div>
-		<span>{{errorCode}} | {{errorMessage}}</span>
+	<div class="container">
+		<p class="status">{{ errorCode }}</p>
+		<p>{{ errorMessage }}</p>
+		<nuxt-link to="/">Home Page</nuxt-link>
 	</div>
 </template>
 
 <script>
 export default {
+	name: 'Error',
+	layout: 'empty',
 	props: {
 		error: {
 			type: Object,
@@ -23,31 +27,18 @@ export default {
 }
 </script>
 
-<style>
-@import '@mdi/font/css/materialdesignicons.min.css';
-</style>
-
-<style lang="scss" scoped>
-//@media #{map-get($display-breakpoints, 'md-and-up')} {
-//	#status{
-//		--font-size: 130px;
-//		text-align: start;
-//	}
-//	#message{
-//		--font-size: 28px;
-//		text-align-last: start;
-//	}
-//}
-//
-//@media #{map-get($display-breakpoints, 'lg-and-up')} {
-//	#error-image{ max-width: 360px; }
-//	#status{ --font-size: 170px; }
-//	#message{ --font-size: 40px; }
-//}
-//
-//@media #{map-get($display-breakpoints, 'xl-only')} {
-//	#error-image{ max-width: 450px; }
-//	#status{ --font-size: 228px; }
-//	#message{ --font-size: 56px; }
-//}
+<style scoped>
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	font-size: 18px;
+	margin-top: 100px;
+	font-weight: 600;
+}
+.status{
+	color: var(--color-error);
+	font-weight: 800;
+}
 </style>

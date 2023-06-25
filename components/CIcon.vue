@@ -1,5 +1,5 @@
 <template>
-	<i class="mdi" :class="name"></i>
+	<i class="mdi" :class="name" />
 </template>
 
 <script>
@@ -15,7 +15,6 @@ export default {
 	i.mdi{
 		width: 32px;
 		height: 32px;
-		color: var(--color-subtext);
 		line-height: 1;
 		display: flex;
 		align-items: center;

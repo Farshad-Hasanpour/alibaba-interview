@@ -1,30 +1,36 @@
 <template>
 	<div>
-
+		{{ country }}
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'IndexPage',
+	name: "Country",
 	async asyncData({ error, $countryService }){
 		try{
-			const allCountries = await $countryService.getAllCountries();
+			const country = await $countryService.getCountryDetails({
+				code: 'IRQ'
+			});
 			return {
-				allCountries
+				country
 			};
 		}catch(err){
 			if(process.env.NODE_ENV === 'development') console.error(err);
 			error({
 				status: err.response ? parseInt(err.response.status) : 500,
-				msg: 'There was some error in fetching countries.'
+				msg: 'There was some error in fetching country details.'
 			});
 		}
 	},
 	data(){
 		return {
-			allCountries: []
+			country: {}
 		}
 	}
 }
 </script>
+
+<style scoped>
+
+</style>

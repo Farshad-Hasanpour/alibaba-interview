@@ -30,7 +30,7 @@ body{
 	color: var(--color-text);
 	transition: color .3s, background-color .3s;
 
-	scrollbar-color: #0366fc #ddd;
+	scrollbar-color: #007bff #ddd;
 	scrollbar-width: thin;
 }
 *:not(pre):not(code):not(i){
@@ -45,12 +45,20 @@ body{
 }
 
 *::-webkit-scrollbar-thumb {
-	background: #0366fc;
+	background: #007bff;
 	border-radius: 4px;
 }
 
 p{ margin: 0 }
 a{ text-decoration: none; }
+
+a,
+a:visited,
+a:focus,
+a:hover{
+	color: #007bff
+}
+
 ul, li { margin: 0; padding: 0; list-style: none; }
 img{
 	display: block;
