@@ -1,5 +1,5 @@
 const icons = {
-	darkMode: 'mdi-moon-waning-crescent',
+	darkMode: 'mdi-weather-night',
 	lightMode: 'mdi-weather-sunny',
 };
 
