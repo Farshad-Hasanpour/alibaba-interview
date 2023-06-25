@@ -15,10 +15,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	@use "~/assets/style/variables" as *;
+
 	.top-bar{
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		height: 64px;
+		padding-left: 4px;
+		padding-right: 4px;
+		background-color: var(--color-element);
+	}
+
+	.top-bar__title{
+		font-size: 16px;
+		font-weight: 600;
+	}
+	.top-bar__theme{
+		font-size: 14px;
+	}
+
+	@media #{map-get($display-breakpoints, 'sm-and-up')} {
+		.top-bar{
+			padding-left: 32px;
+			padding-right: 32px;
+		}
 	}
 </style>

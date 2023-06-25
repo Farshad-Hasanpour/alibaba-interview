@@ -1,0 +1,14 @@
+$grid-breakpoints: (
+	xs: 0,
+	sm: 600px,
+	md: 960px,
+	lg: 1280px - 16px,
+	xl: 1920px - 16px
+);
+
+$display-breakpoints: (
+	sm-and-up: "only screen and (min-width: #{map-get($grid-breakpoints, 'sm')})",
+	md-and-up: "only screen and (min-width: #{map-get($grid-breakpoints, 'md')})",
+	lg-and-up: "only screen and (min-width: #{map-get($grid-breakpoints, 'lg')})",
+	xl-only: "only screen and (min-width: #{map-get($grid-breakpoints, 'xl')})"
+);
