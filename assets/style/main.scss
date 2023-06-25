@@ -28,11 +28,12 @@ body{
 *{
 	box-sizing: border-box;
 	color: var(--color-text);
+	transition: color .3s, background-color .3s;
 
 	scrollbar-color: #0366fc #ddd;
 	scrollbar-width: thin;
 }
-*:not(pre):not(code){
+*:not(pre):not(code):not(i){
 	font-family: Nunito Sans, sans-serif;
 }
 *::-webkit-scrollbar {
@@ -70,6 +71,7 @@ button{
 	text-decoration: none;
 	cursor: pointer;
 	outline: none;
+	user-select: none;
 }
 
 button.normal{
@@ -81,10 +83,11 @@ button.normal{
 	flex-shrink: 0;
 	font-weight: 600;
 	font-size: 16px;
+	background-color: var(--color-element);
 }
 input.normal{
 	color: var(--color-input);
-	background: var(--color-element);
+	background-color: var(--color-element);
 }
 
 .no-scroll{
