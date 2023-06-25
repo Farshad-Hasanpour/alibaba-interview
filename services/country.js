@@ -8,11 +8,16 @@ export default function($axios) {
 					fields
 				}
 			}).then(res => {
-				return res.data.map(country => ({
-					...country,
-					capital: country.capital && country.capital[0] ? country.capital[0] : null,
-					population: !country.population ? null : country.population.toLocaleString()
-				}));
+				return res.data.map(country => {
+					if(country.name){
+						const langCodes = Object.keys(country.name.nativeName);
+						country.name.nativeName = !langCodes.length ? null : country.name.nativeName[langCodes[0]].common
+					}
+					if(country.capital) country.capital = !country.capital[0] ? 'N/A' : country.capital[0]
+					if(country.population) country.population = country.population.toLocaleString()
+
+					return country
+				});
 			})
 		},
 		getCountryDetails({
@@ -26,14 +31,19 @@ export default function($axios) {
 				}
 			}).then(async res => {
 				const country = res.data;
-				return {
-					...country,
-					capital: country.capital && country.capital[0] ? country.capital[0] : null,
-					population: !country.population ? null : country.population.toLocaleString(),
-					borders: !country.borders
-						? null
-						: await this.getCountryNames({ codes: country.borders.join(',') })
-				};
+
+				if(country.name){
+					const langCodes = Object.keys(country.name.nativeName);
+					country.name.nativeName = !langCodes.length ? null : country.name.nativeName[langCodes[0]].common
+				}
+				if(country.capital) country.capital = !country.capital[0] ? 'N/A' : country.capital[0]
+				if(country.population) country.population = country.population.toLocaleString()
+
+				if(country.borders && country.borders.length){
+					country.borders = await this.getCountryNames({ codes: country.borders.join(',') })
+				}
+
+				return country;
 			})
 		},
 		getCountryNames({
