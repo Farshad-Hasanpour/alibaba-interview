@@ -1,7 +1,7 @@
 export default function($axios) {
 	return {
 		getAllCountries({
-			fields = 'cca3,name,population,region,capital'
+			fields = 'cca3,name,population,region,capital,flags'
 		} = {}){
 			return $axios.get(`/api/all`, {
 				params: {

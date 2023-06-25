@@ -14,7 +14,6 @@ export default {
 				allCountries
 			};
 		}catch(err){
-			if(process.env.NODE_ENV === 'development') console.error(err);
 			error({
 				status: err.response ? parseInt(err.response.status) : 500,
 				msg: 'There was some error in fetching countries.'
