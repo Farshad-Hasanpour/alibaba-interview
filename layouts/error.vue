@@ -23,6 +23,10 @@ export default {
 }
 </script>
 
+<style>
+@import '@mdi/font/css/materialdesignicons.min.css';
+</style>
+
 <style lang="scss" scoped>
 //@media #{map-get($display-breakpoints, 'md-and-up')} {
 //	#status{

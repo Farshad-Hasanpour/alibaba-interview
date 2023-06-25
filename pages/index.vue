@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<pre>
-			{{allCountries}}
-		</pre>
+
 	</div>
 </template>
 

@@ -10,7 +10,8 @@ export default function($axios) {
 			}).then(res => {
 				return res.data.map(country => ({
 					...country,
-					capital: country.capital[0] ? country.capital[0] : 'N/A'
+					capital: country.capital && country.capital[0] ? country.capital[0] : 'N/A',
+					population: !country.population ? 'N/A' : country.population.toLocaleString()
 				}));
 			})
 		}
