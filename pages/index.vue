@@ -11,7 +11,7 @@ export default {
 	name: 'IndexPage',
 	async asyncData({ error, $countryService }){
 		try{
-			const allCountries = await $countryService.getCountries();
+			const allCountries = await $countryService.getAllCountries();
 			return {
 				allCountries
 			};
@@ -19,7 +19,7 @@ export default {
 			if(process.env.NODE_ENV === 'development') console.error(err);
 			error({
 				status: err.response ? parseInt(err.response.status) : 500,
-				message: 'There was some error in fetching countries.'
+				msg: 'There was some error in fetching countries.'
 			});
 		}
 	},
