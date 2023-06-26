@@ -53,6 +53,17 @@
 </template>
 
 <script>
+
+function termHasAllCharsOrderWise(term, charSet){
+	let previosCharIndex = 0;
+	for(let i = 0; i < charSet.length; i++){
+		const indexOfChar = term.slice(previosCharIndex, term.length).indexOf(charSet[i]);
+		if(indexOfChar === -1) return false;
+		previosCharIndex = indexOfChar + 1;
+	}
+	return true;
+}
+
 export default {
 	name: 'IndexPage',
 	async asyncData({ error, query, $countryService }){
@@ -101,12 +112,12 @@ export default {
 				// filter by region
 				if(this.filter.region && country.region !== this.filter.region) return false;
 				// filter by search term
-				const query = this.filter.query?.toLowerCase() || '';
+				const searchChars = this.filter.query?.toLowerCase().split('') || null;
 				return !(
-					query &&
-					!country.name.common.toLowerCase().includes(query) &&
-					!country.name.official.toLowerCase().includes(query) &&
-					!country.name.nativeName.toLowerCase().includes(query)
+					searchChars &&
+					!termHasAllCharsOrderWise(country.name.common?.toLowerCase() || '', searchChars) &&
+					!termHasAllCharsOrderWise(country.name.official?.toLowerCase() || '', searchChars) &&
+					!termHasAllCharsOrderWise(country.name.nativeName?.toLowerCase() || '', searchChars)
 				)
 			});
 
