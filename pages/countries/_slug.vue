@@ -12,10 +12,10 @@
 			</nuxt-link>
 		</nav>
 		<div class="details">
-			<div class="details__flag">
+			<div>
 				<img class="flag" :src="country.flag.src" :alt="country.flag.alt" :draggable="false">
 			</div>
-			<div class="details__more-info">
+			<div>
 				<h3 class="country-name">{{ country.name.common }}</h3>
 				<div class="extra">
 					<div class="extra__primary">
@@ -126,20 +126,13 @@ export default {
 	width: 100%;
 	padding: 32px;
 	display: grid;
-	grid-template-columns: repeat(12, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	grid-gap: 64px;
-}
-.details__flag{
-	grid-column: span 12;
-	height: auto;
 }
 .flag{
 	width: 100%;
 	height: auto;
 	border: 1px solid var(--color-line)
-}
-.details__more-info{
-	grid-column: span 12;
 }
 
 .country-name{
@@ -196,11 +189,8 @@ export default {
 }
 
 @media #{map-get($display-breakpoints, 'md-and-up')} {
-	.details__flag{
-		grid-column: span 6;
-	}
-	.details__more-info{
-		grid-column: span 6;
+	.details{
+		grid-template-columns: repeat(2, 1fr);
 	}
 
 	.borders__title{
