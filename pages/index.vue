@@ -36,14 +36,22 @@
 						class="region-select__icon cursor-pointer"
 				/>
 			</div>
-			<button class="sort-btn normal" @click.stop="toggleSort">
-				<span class="sort-btn__name">{{sort.field}}</span>
+			<button v-wave class="sort-btn normal" @click.stop="toggleSort">
+				<span class="sort-btn__name">sort: {{sort.field}}</span>
 				<CIcon
 						:name="$store.state.icons.asc"
 						color="var(--color-input)"
 						:class="{'reverse': sort.type !== 'ASC'}"
 				/>
 			</button>
+		</div>
+		<div class="country-list">
+			<CountryCard
+					v-for="country in shownCountries"
+					:key="country.cca3"
+					:country="country"
+					class="country-card"
+			/>
 		</div>
 	</div>
 </template>
@@ -180,12 +188,17 @@ export default {
 $input-pad-h: 12px;
 $input-h: 42px;
 
-.filter-box{
+.filter-box,
+.country-list{
 	width: 100%;
 	padding: 16px;
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
 	grid-gap: 16px;
+}
+
+.country-card{
+	grid-column: span 12;
 }
 
 .search-box{
@@ -245,6 +258,7 @@ $input-h: 42px;
 	justify-content: space-between;
 	grid-column: span 12;
 	height: $input-h;
+	text-transform: capitalize;
 }
 .sort-btn__name{
 	margin-inline-end: 8px;
@@ -252,6 +266,9 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'sm-and-up')} {
+	.country-card{
+		grid-column: span 6;
+	}
 	.region-select{
 		grid-column: span 6;
 	}
@@ -261,6 +278,9 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'md-and-up')} {
+	.country-card{
+		grid-column: span 4;
+	}
 	.search-box{
 		grid-column: span 6;
 	}
@@ -273,6 +293,9 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'lg-and-up')} {
+	.country-card{
+		grid-column: span 3;
+	}
 	.search-box{
 		grid-column: span 6;
 	}
