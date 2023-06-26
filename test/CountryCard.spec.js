@@ -14,7 +14,7 @@ const country = {
 }
 
 describe('CountryCard', () => {
-	test('At first, loads a placeholder as the flag to replace it with the help of lazy loading', () => {
+	test('At first, loads a placeholder instead of the actual flag to replace it later with the help of lazy loading', () => {
 		const wrapper = shallowMount(CountryCard, {
 			propsData: {
 				country
