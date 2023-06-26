@@ -69,7 +69,7 @@ function termHasAllCharsOrderWise(term, charSet){
 	for(let i = 0; i < charSet.length; i++){
 		const indexOfChar = term.slice(previousCharIndex, term.length).indexOf(charSet[i]);
 		if(indexOfChar < 0) return false;
-		previousCharIndex = indexOfChar + 1;
+		previousCharIndex += indexOfChar + 1;
 	}
 	return true;
 }
