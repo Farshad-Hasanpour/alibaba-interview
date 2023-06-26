@@ -1,4 +1,7 @@
 export default {
+	env: {
+		'GTAG_MEASUREMENT_ID': process.env.NODE_ENV === 'production' ? 'G-RR55G5KZFE' : ''
+	},
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'alibaba-interview',
