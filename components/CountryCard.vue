@@ -3,10 +3,18 @@
 		<div class="country">
 			<img class="country__flag" :src="country.flag.src" :alt="country.flag.alt">
 			<div class="country-details">
-				<h3 class="country-details__name">{{country.name.common}}</h3>
-				<div class="country-fields" v-for="field in fields" :key="field">
-					<span class="country-fields__title">{{field}}: </span>
-					<span class="country-fields__value">{{country[field]}}</span>
+				<h3 class="country-details__name">{{ country.name.common }}</h3>
+				<div v-for="field in fields" :key="field" class="country-fields">
+					<span class="country-fields__title">{{ field }}: </span>
+					<span class="country-fields__value">
+						{{
+							!country[field]
+								? 'N/A'
+								: typeof country[field] !== 'number'
+									? country[field]
+									: country[field].toLocaleString()
+						}}
+					</span>
 				</div>
 			</div>
 		</div>
