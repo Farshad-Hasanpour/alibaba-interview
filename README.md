@@ -23,6 +23,9 @@ $ npm run test
 ## Demo
 A demo is available in [https://alibaba.codewanted.net/](https://alibaba.codewanted.net/)
 
+## Environment
+Application was tested by Node `16.18.0` and had not any error. 
+
 ## Bonus Tasks
 All Bonus tasks except the one that requires a Dockerfile are done.
 
