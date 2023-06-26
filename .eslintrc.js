@@ -2,6 +2,7 @@ module.exports = {
 	root: true,
 	env: {
 		browser: true,
+		'jest/globals': true,
 		node: true
 	},
 	parserOptions: {
@@ -12,7 +13,9 @@ module.exports = {
 		'@nuxtjs',
 		'plugin:nuxt/recommended'
 	],
-	plugins: [],
+	plugins: [
+		'jest'
+	],
 	// add your custom rules here
 	rules: {
 		"no-tabs": ["error", {"allowIndentationTabs": true}],
