@@ -72,6 +72,6 @@ export default {
 	}
 
 	.country-fields__title{
-		font-weight: 800;
+		font-weight: 600;
 	}
 </style>

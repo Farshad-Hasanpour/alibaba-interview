@@ -5,7 +5,7 @@
 				<button v-wave type="button" class="back-btn normal">
 					<CIcon
 							:name="$store.state.icons.back"
-							color="var(--color-input)"
+							color="var(--color-text)"
 					/>
 					<span class="back-btn__text">Back</span>
 				</button>
@@ -15,10 +15,25 @@
 			<div class="details__flag">
 				<img class="flag" :src="country.flag.src" :alt="country.flag.alt" :draggable="false">
 			</div>
-			<div class="details__more-info info">
-				<h3 class="info__name">{{country.name.common}}</h3>
+			<div class="details__more-info">
+				<h3 class="country-name">{{ country.name.common }}</h3>
 				<div class="extra">
-					{{ country }}
+					<div class="extra__primary">
+						<div v-for="field in primaryFields" :key="field.name" class="country-fields">
+							<span class="country-fields__title">{{ field.title }}: </span>
+							<span class="country-fields__value">
+								{{ getInfoByFieldName(field.name.split('.')) }}
+							</span>
+						</div>
+					</div>
+					<div class="extra__secondary">
+						<div v-for="field in secondaryFields" :key="field.name" class="country-fields">
+							<span class="country-fields__title">{{ field.title }}: </span>
+							<span class="country-fields__value">
+								{{ getInfoByFieldName(field.name.split('.')) }}
+							</span>
+						</div>
+					</div>
 				</div>
 				<div class="borders">
 					<span class="borders__title">Border Countries:</span>
@@ -32,6 +47,7 @@
 							{{ border.name }}
 						</button>
 					</nuxt-link>
+					<span v-show="!country.borders?.length" class="borders__none">None</span>
 				</div>
 			</div>
 		</div>
@@ -60,24 +76,34 @@ export default {
 	computed: {
 		primaryFields(){
 			return [
-				{ name: ['name', 'nativeName'], title: 'Native Name' },
-				{ name: ['population'], title: 'Population' },
-				{ name: ['region'], title: 'Region' },
-				{ name: ['subregion'], title: 'Subregion' },
-				{ name: ['capital'], title: 'Capital' },
+				{ name: 'name.nativeName', title: 'Native Name' },
+				{ name: 'population', title: 'Population' },
+				{ name: 'region', title: 'Region' },
+				{ name: 'subregion', title: 'Subregion' },
+				{ name: 'capital', title: 'Capital' },
 			]
 		},
 		secondaryFields(){
 			return [
-				{ name: ['tld'], title: 'Top Level Domains' },
-				{ name: ['currencies'], title: 'Currencies' },
-				{ name: ['languages'], title: 'Languages' },
+				{ name: 'tld', title: 'Top Level Domains' },
+				{ name: 'currencies', title: 'Currencies' },
+				{ name: 'languages', title: 'Languages' },
 			]
 		}
 	},
-	data(){
-		return {
-			country: {}
+	methods:{
+		getInfoByFieldName(fieldName){
+			if(!fieldName?.length) return 'N/A';
+			let result = this.country;
+			fieldName.forEach(part => {
+				result = result[part];
+			});
+
+			if(!result) return 'N/A';
+
+			if(typeof result === 'number') result = result.toLocaleString();
+
+			return result;
 		}
 	}
 }
@@ -92,7 +118,7 @@ export default {
 	display: flex;
 }
 .back-btn__text{
-	color: var(--color-input);
+	color: var(--color-text);
 	padding-left: 8px;
 	padding-right: 8px;
 }
@@ -110,18 +136,38 @@ export default {
 .flag{
 	width: 100%;
 	height: auto;
+	border: 1px solid var(--color-line)
 }
 .details__more-info{
 	grid-column: span 12;
 }
 
-.info__name{
+.country-name{
 	font-size: 26px;
 	font-weight: 800;
 }
 
 .extra{
-	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+
+}
+.extra__primary{
+	width: 100%;
+	margin-bottom: 42px
+}
+.extra__secondary{
+	width: 100%;
+	margin-bottom: 42px;
+}
+
+.country-fields__title{
+	font-weight: 600;
+}
+
+.country-fields__value,
+.country-fields__title{
+	font-size: 14px
 }
 
 .borders{
@@ -134,12 +180,19 @@ export default {
 	width: 100%;
 	margin-right: 8px;
 	margin-bottom: 16px;
+	font-weight: 800;
 }
 
 .border-btn{
 	margin-right: 8px;
 	margin-bottom: 16px;
-	color: var(--color-input);
+	color: var(--color-text);
+}
+
+.borders__none{
+	margin-right: 8px;
+	margin-bottom: 16px;
+	color: var(--color-text);
 }
 
 @media #{map-get($display-breakpoints, 'md-and-up')} {
@@ -152,6 +205,15 @@ export default {
 
 	.borders__title{
 		width: auto;
+	}
+
+	.extra__primary{
+		width: 50%;
+		padding-right: 21px;
+	}
+	.extra__secondary{
+		width: 50%;
+		padding-left: 21px;
 	}
 }
 </style>
