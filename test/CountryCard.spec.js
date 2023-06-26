@@ -14,7 +14,7 @@ const country = {
 }
 
 describe('CountryCard', () => {
-	test('loads a placeholder as the flag at first', () => {
+	test('At first, loads a placeholder as the flag to replace it with the help of lazy loading', () => {
 		const wrapper = shallowMount(CountryCard, {
 			propsData: {
 				country
@@ -27,7 +27,7 @@ describe('CountryCard', () => {
 			},
 		});
 
-		const flagSrc = wrapper.find('.country__flag').attributes('src');
+		const flagSrc = wrapper.find('img.country__flag').attributes('src');
 
 		expect(flagSrc).not.toBe(country.flag.src);
 	})

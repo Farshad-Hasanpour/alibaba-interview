@@ -11,7 +11,8 @@ module.exports = {
 	],
 	transform: {
 		'^.+\\.js$': 'babel-jest',
-		'.*\\.(vue)$': 'vue-jest'
+		'.*\\.(vue)$': 'vue-jest',
+		'\\.(jpg|jpeg|png|gif|svg)$': 'jest-transform-stub'
 	},
 	collectCoverage: false,
 	collectCoverageFrom: [
