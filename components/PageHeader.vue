@@ -33,12 +33,18 @@ export default {
 	}
 	.top-bar__theme{
 		font-size: 14px;
+		padding: 4px 12px;
+		border-radius: 4px;
 	}
 
 	@media #{map-get($display-breakpoints, 'sm-and-up')} {
 		.top-bar{
 			padding-left: 32px;
 			padding-right: 32px;
+		}
+
+		.top-bar__title{
+			font-size: 28px;
 		}
 	}
 </style>
