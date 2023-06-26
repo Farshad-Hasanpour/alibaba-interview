@@ -48,17 +48,19 @@
 		<div class="country-list">
 			<CountryCard
 					ref="countryCard"
-					v-for="country in shownCountries"
+					v-for="country in paginatedCountries"
 					:key="country.cca3"
 					:country="country"
 					class="country-card"
 			/>
 		</div>
+		<div ref="autoPagination" class="auto-pagination" />
 	</div>
 </template>
 
 <script>
 let flagLazyLoadObserver = null;
+let autoPaginationObserver = null;
 
 function termHasAllCharsOrderWise(term, charSet){
 	let previousCharIndex = 0;
@@ -119,21 +121,43 @@ export default {
 				flagLazyLoadObserver.unobserve(entry.target);
 			})
 		});
+
+		// observer for auto pagination
+		autoPaginationObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if(!entry.isIntersecting) return;
+				this.$nextTick(() => {
+					this.page = this.page + 1;
+				})
+			})
+		});
+		autoPaginationObserver.observe(this.$refs.autoPagination);
+	},
+	beforeDestroy(){
+		//unobserve
+		this.$refs.countryCard.forEach(countryCard => {
+			flagLazyLoadObserver.unobserve(countryCard.$refs.flagImage);
+		});
+		autoPaginationObserver.unobserve(this.$refs.autoPagination);
 	},
 	watch: {
 		"filter.region"(){
+			this.page = 1;
 			this.updateURLQueries()
 		},
 		"filter.search"(){
+			this.page = 1;
 			this.updateURLQueries()
 		},
 		"sort.field"(){
+			this.page = 1;
 			this.updateURLQueries()
 		},
 		"sort.type"(){
+			this.page = 1;
 			this.updateURLQueries()
 		},
-		shownCountries: {
+		paginatedCountries: {
 			immediate: true,
 			handler(){
 				// wait for countries to be mounted
@@ -186,6 +210,15 @@ export default {
 			})
 
 			return result
+		},
+		paginatedCountries(){
+			return this.shownCountries.slice(0, this.page * this.perPage)
+		}
+	},
+	data(){
+		return{
+			page: 1,
+			perPage: 12 // It's better to be divisible by 2, 3 and 4 (number of countries per row in various screens)
 		}
 	},
 	methods: {
@@ -302,6 +335,11 @@ $input-h: 42px;
 .sort-btn__name{
 	margin-inline-end: 8px;
 	color: var(--color-input);
+}
+
+.auto-pagination{
+	width: 100%;
+	height: 12px;
 }
 
 @media #{map-get($display-breakpoints, 'sm-and-up')} {
