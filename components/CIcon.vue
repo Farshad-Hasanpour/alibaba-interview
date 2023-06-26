@@ -1,5 +1,5 @@
 <template>
-	<i class="mdi" :class="name" />
+	<i class="mdi" :class="name" @click="$emit('click', $event)"/>
 </template>
 
 <script>

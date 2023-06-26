@@ -5,19 +5,40 @@
 				<CIcon :name="$store.state.icons.search"/>
 				<input
 						v-model="filter.query"
-						type="search"
 						inputmode="search"
 						placeholder="Search for a country"
 						class="search-box__input"
 				>
+				<CIcon
+						v-show="filter.query"
+						:name="$store.state.icons.close"
+						color="var(--color-input)"
+						class="cursor-pointer"
+						@click.stop="filter.query = ''"
+				/>
 			</div>
 
-			<div class="select-box">
-				<select v-model="filter.region" name="region" class="region-select">
-					<option :value="null">Filter by Region</option>
-					<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
-				</select>
-				<button class="sort-btn normal" @click="toggleSort">
+			<div class="other-filters">
+				<div class="region-select">
+					<!-- TODO: A customized select component would be better -->
+					<select v-model="filter.region" name="region" class="region-select__input cursor-pointer">
+						<option :value="null">Filter by Region</option>
+						<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
+					</select>
+					<CIcon
+							v-show="filter.region"
+							:name="$store.state.icons.close"
+							color="var(--color-input)"
+							class="region-select__close cursor-pointer"
+							@click.stop="filter.region = null"
+					/>
+					<CIcon
+							:name="$store.state.icons.asc"
+							color="var(--color-input)"
+							class="region-select__icon cursor-pointer"
+					/>
+				</div>
+				<button class="sort-btn normal" @click.stop="toggleSort">
 					<span class="sort-btn__name">{{sort.field}}</span>
 					<CIcon
 							:name="$store.state.icons.asc"
@@ -149,20 +170,46 @@ $input-h: 42px;
 	padding-right: $input-pad-h;
 }
 
-.select-box{
+.other-filters{
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	width: 100%;
-	height: $input-h;
 }
 
 .region-select{
 	width: 100%;
 	height: $input-h;
+	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: var(--color-element);
+	border-radius: 4px;
+	position: relative;
+}
+.region-select__input{
+	height: 100%;
+	width: 100%;
 	padding-left: $input-pad-h;
 	padding-right: $input-pad-h;
-	margin-bottom: 16px;
+	z-index: 2;
+	background-color: transparent;
+}
+.region-select__input option{
+	background-color: var(--color-element);
+	color: var(--color-input);
+}
+.region-select__icon{
+	position: absolute;
+	right: $input-pad-h;
+	top: calc((#{$input-h} - 32px) / 2);
+}
+.region-select__close{
+	position: absolute;
+	right:calc(#{$input-pad-h} + 32px);
+	top: calc((#{$input-h} - 32px) / 2);
+	z-index: 3;
 }
 
 .sort-btn{
