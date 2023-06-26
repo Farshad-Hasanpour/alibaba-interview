@@ -194,7 +194,12 @@ $input-h: 42px;
 	padding: 16px;
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
+}
+.filter-box{
 	grid-gap: 16px;
+}
+.country-list{
+	grid-gap: 42px;
 }
 
 .country-card{

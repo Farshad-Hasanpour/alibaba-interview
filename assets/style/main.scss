@@ -6,6 +6,7 @@ body:not([data-dark]){
 	--color-element: #ffffff;
 	--color-error: #CA1551;
 	--color-success: #00b38c;
+	--color-line: #eee;
 }
 
 // Dark Mode
@@ -16,6 +17,7 @@ body[data-dark]{
 	--color-element: #2b3945;
 	--color-error: #CA1551;
 	--color-success: #00b38c;
+	--color-line: #202c37;
 }
 
 body{
@@ -28,7 +30,7 @@ body{
 *{
 	box-sizing: border-box;
 	color: var(--color-text);
-	transition: color .3s, background-color .3s;
+	transition: color .3s, background-color .3s, border-color .3s;
 
 	scrollbar-color: #007bff #ddd;
 	scrollbar-width: thin;
