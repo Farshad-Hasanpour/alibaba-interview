@@ -32,6 +32,6 @@ module.exports = {
 		"vue/html-indent": "off",
 		"vue/singleline-html-element-content-newline": "off",
 		"object-shorthand": "off",
-		"no-comment": "off"
+		"no-console": "off"
 	}
 }

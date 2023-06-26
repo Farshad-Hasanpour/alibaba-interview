@@ -30,10 +30,17 @@ export default function($axios) {
 				country.name.nativeName = !langCodes.length ? null : country.name.nativeName[langCodes[0]].common
 			}
 			if(country.capital) country.capital = !country.capital[0] ? 'N/A' : country.capital[0]
-			if(country.population) country.population = country.population.toLocaleString()
 
 			if(country.borders && country.borders.length){
 				country.borders = await this.getCountryNames({ codes: country.borders.join(',') })
+			}
+
+			if(country.flags){
+				country.flag = {
+					alt: country.flags.alt || 'country flag',
+					src: country.flags.svg || country.flags.png || null
+				}
+				delete country.flags;
 			}
 
 			return country;

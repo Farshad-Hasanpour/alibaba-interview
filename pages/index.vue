@@ -1,6 +1,6 @@
 <template>
 	<div>
-		{{allCountries}}
+		<pre>{{ shownCountries }}</pre>
 	</div>
 </template>
 
@@ -21,9 +21,56 @@ export default {
 			});
 		}
 	},
+	computed:{
+		allRegions(){
+			return Array.from(
+				new Set(
+					this.allCountries.map(country => country.region)
+				)
+			)
+		},
+		shownCountries(){
+			let result = this.allCountries;
+
+			result = result.filter(country => {
+				// filter by region
+				if(this.filter.region && country.region !== this.filter.region) return false;
+				// filter by search term
+				const query = this.filter.query?.toLowerCase() || '';
+				return !(
+					query &&
+					!country.name.common.toLowerCase().includes(query) &&
+					!country.name.official.toLowerCase().includes(query) &&
+					!country.name.nativeName.toLowerCase().includes(query)
+				)
+			});
+
+			const coef = this.sort.type === 'ASC' ? 1 : -1;
+			result.sort((a, b) => {
+				let result = 0;
+				if(this.sort.field === 'name'){
+					result = a.name.common.localeCompare(b.name.common);
+				}else if(this.sort.field === 'population'){
+					if(a.population > b.population) result = 1;
+					else if(a.population < b.population) result = -1;
+				}
+				return result * coef;
+			})
+
+			return result
+		}
+	},
 	data(){
 		return {
-			allCountries: []
+			allCountries: [],
+			sort: {
+				field: 'name',
+				type: 'ASC'
+			},
+			filter: {
+				region: 'Africa',
+				query: ''
+			}
 		}
 	}
 }
