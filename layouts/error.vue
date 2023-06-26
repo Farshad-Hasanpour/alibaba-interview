@@ -2,14 +2,13 @@
 	<div class="container">
 		<p class="status">{{ errorCode }}</p>
 		<p>{{ errorMessage }}</p>
-		<nuxt-link to="/">Home Page</nuxt-link>
+		<nuxt-link to="/" :draggable="false">Home Page</nuxt-link>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'Error',
-	layout: 'empty',
 	props: {
 		error: {
 			type: Object,

@@ -1,6 +1,6 @@
 <template>
 	<header class="top-bar">
-		<nuxt-link to="/">
+		<nuxt-link to="/" :draggable="false">
 			<h1 class="title-text">Where in the world?</h1>
 		</nuxt-link>
 
