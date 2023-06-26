@@ -4,17 +4,17 @@
 			<div class="search-box">
 				<CIcon :name="$store.state.icons.search"/>
 				<input
-						v-model="filter.query"
+						v-model="filter.search"
 						inputmode="search"
 						placeholder="Search for a country"
 						class="search-box__input"
 				>
 				<CIcon
-						v-show="filter.query"
+						v-show="filter.search"
 						:name="$store.state.icons.close"
 						color="var(--color-input)"
 						class="cursor-pointer"
-						@click.stop="filter.query = ''"
+						@click.stop="filter.search = ''"
 				/>
 			</div>
 
@@ -55,11 +55,11 @@
 <script>
 
 function termHasAllCharsOrderWise(term, charSet){
-	let previosCharIndex = 0;
+	let previousCharIndex = 0;
 	for(let i = 0; i < charSet.length; i++){
-		const indexOfChar = term.slice(previosCharIndex, term.length).indexOf(charSet[i]);
-		if(indexOfChar === -1) return false;
-		previosCharIndex = indexOfChar + 1;
+		const indexOfChar = term.indexOf(charSet[i]);
+		if(indexOfChar < previousCharIndex) return false;
+		previousCharIndex = indexOfChar + 1;
 	}
 	return true;
 }
@@ -82,7 +82,7 @@ export default {
 				allCountries,
 				filter: {
 					region: region || null,
-					query: search || ''
+					search: search || ''
 				},
 				sort: {
 					field: sortField || 'name',
@@ -107,14 +107,14 @@ export default {
 		},
 		shownCountries(){
 			let result = this.allCountries;
+			const searchChars = this.filter.search?.toLowerCase().split('');
 
 			result = result.filter(country => {
 				// filter by region
 				if(this.filter.region && country.region !== this.filter.region) return false;
 				// filter by search term
-				const searchChars = this.filter.query?.toLowerCase().split('') || null;
 				return !(
-					searchChars &&
+					searchChars?.length &&
 					!termHasAllCharsOrderWise(country.name.common?.toLowerCase() || '', searchChars) &&
 					!termHasAllCharsOrderWise(country.name.official?.toLowerCase() || '', searchChars) &&
 					!termHasAllCharsOrderWise(country.name.nativeName?.toLowerCase() || '', searchChars)
