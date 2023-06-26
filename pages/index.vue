@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container">
 		<div class="filter-box">
 			<div class="search-box">
 				<CIcon :name="$store.state.icons.search"/>
@@ -48,7 +48,6 @@
 				</button>
 			</div>
 		</div>
-		<pre>{{ shownCountries }}</pre>
 	</div>
 </template>
 
@@ -179,6 +178,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use "~/assets/style/variables" as *;
+
 $input-pad-h: 12px;
 $input-h: 42px;
 
@@ -255,9 +256,52 @@ $input-h: 42px;
 	justify-content: space-between;
 	width: 100%;
 	margin-bottom: 16px;
+	height: $input-h;
 }
 .sort-btn__name{
 	margin-inline-end: 8px;
 	color: var(--color-input);
+}
+
+@media #{map-get($display-breakpoints, 'sm-and-up')} {
+	.region-select{
+		width: 50%;
+	}
+	.sort-btn{
+		width: 50%;
+	}
+}
+
+@media #{map-get($display-breakpoints, 'md-and-up')} {
+	.search-box{
+		width: 50%;
+	}
+	.other-filters{
+		width: 50%;
+	}
+	.region-select{
+		width: 50%;
+	}
+	.sort-btn{
+		width: 50%;
+	}
+}
+
+@media #{map-get($display-breakpoints, 'lg-and-up')} {
+	.search-box{
+		width: 50%;
+	}
+	.other-filters{
+		width: 40%;
+	}
+}
+
+@media #{map-get($display-breakpoints, 'xl-only')} {
+	.search-box{
+		width: 50%;
+	}
+	.other-filters{
+		width: 30%;
+	}
 }
 </style>
