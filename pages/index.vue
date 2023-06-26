@@ -1,59 +1,49 @@
 <template>
 	<div class="container">
 		<div class="filter-box">
-			<div class="search-box-col">
-				<div class="search-box">
-					<CIcon :name="$store.state.icons.search"/>
-					<input
-							v-model="filter.search"
-							inputmode="search"
-							placeholder="Search for a country"
-							class="search-box__input"
-					>
-					<CIcon
-							v-show="filter.search"
-							:name="$store.state.icons.close"
-							color="var(--color-input)"
-							class="cursor-pointer"
-							@click.stop="filter.search = ''"
-					/>
-				</div>
+			<div class="search-box">
+				<CIcon :name="$store.state.icons.search"/>
+				<input
+						v-model="filter.search"
+						inputmode="search"
+						placeholder="Search for a country"
+						class="search-box__input"
+				>
+				<CIcon
+						v-show="filter.search"
+						:name="$store.state.icons.close"
+						color="var(--color-input)"
+						class="cursor-pointer"
+						@click.stop="filter.search = ''"
+				/>
 			</div>
-
-			<div class="other-filters">
-				<div class="region-select-col">
-					<div class="region-select">
-						<!-- TODO: A customized select component would be better -->
-						<select v-model="filter.region" name="region" class="region-select__input cursor-pointer">
-							<option :value="null">Filter by Region</option>
-							<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
-						</select>
-						<CIcon
-								v-show="filter.region"
-								:name="$store.state.icons.close"
-								color="var(--color-input)"
-								class="region-select__close cursor-pointer"
-								@click.stop="filter.region = null"
-						/>
-						<CIcon
-								:name="$store.state.icons.asc"
-								color="var(--color-input)"
-								class="region-select__icon cursor-pointer"
-						/>
-					</div>
-				</div>
-
-				<div class="sort-btn-col">
-					<button class="sort-btn normal" @click.stop="toggleSort">
-						<span class="sort-btn__name">{{sort.field}}</span>
-						<CIcon
-								:name="$store.state.icons.asc"
-								color="var(--color-input)"
-								:class="{'reverse': sort.type !== 'ASC'}"
-						/>
-					</button>
-				</div>
+			<div class="region-select">
+				<!-- TODO: A customized select component would be better -->
+				<select v-model="filter.region" name="region" class="region-select__input cursor-pointer">
+					<option :value="null">Filter by Region</option>
+					<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
+				</select>
+				<CIcon
+						v-show="filter.region"
+						:name="$store.state.icons.close"
+						color="var(--color-input)"
+						class="region-select__close cursor-pointer"
+						@click.stop="filter.region = null"
+				/>
+				<CIcon
+						:name="$store.state.icons.asc"
+						color="var(--color-input)"
+						class="region-select__icon cursor-pointer"
+				/>
 			</div>
+			<button class="sort-btn normal" @click.stop="toggleSort">
+				<span class="sort-btn__name">{{sort.field}}</span>
+				<CIcon
+						:name="$store.state.icons.asc"
+						color="var(--color-input)"
+						:class="{'reverse': sort.type !== 'ASC'}"
+				/>
+			</button>
 		</div>
 	</div>
 </template>
@@ -191,26 +181,19 @@ $input-pad-h: 12px;
 $input-h: 42px;
 
 .filter-box{
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
 	width: 100%;
-	padding-top: 16px;
-	padding-bottom: 16px;
+	padding: 16px;
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-gap: 16px;
 }
 
-.search-box-col{
-	width: 100%;
-	margin-bottom: 16px;
-	padding-left: 16px;
-	padding-right: 16px;
-}
 .search-box{
 	background-color: var(--color-element);
 	display: flex;
 	align-items: center;
 	height: $input-h;
-	width: 100%;
+	grid-column: span 12;
 	border-radius: 4px;
 	overflow: hidden;
 	padding-left: $input-pad-h;
@@ -224,23 +207,8 @@ $input-h: 42px;
 	padding-right: $input-pad-h;
 }
 
-.other-filters{
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	width: 100%;
-	padding-left: 8px;
-	padding-right: 8px;
-}
-
-.region-select-col{
-	width: 100%;
-	margin-bottom: 16px;
-	padding-left: 8px;
-	padding-right: 8px;
-}
 .region-select{
-	width: 100%;
+	grid-column: span 12;
 	height: $input-h;
 	display: flex;
 	align-items: center;
@@ -273,15 +241,9 @@ $input-h: 42px;
 	z-index: 3;
 }
 
-.sort-btn-col{
-	width: 100%;
-	margin-bottom: 16px;
-	padding-left: 8px;
-	padding-right: 8px;
-}
 .sort-btn{
 	justify-content: space-between;
-	width: 100%;
+	grid-column: span 12;
 	height: $input-h;
 }
 .sort-btn__name{
@@ -290,38 +252,35 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'sm-and-up')} {
-	.region-select-col{
-		width: 50%;
+	.region-select{
+		grid-column: span 6;
 	}
-	.sort-btn-col{
-		width: 50%;
+	.sort-btn{
+		grid-column: span 6;
 	}
 }
 
 @media #{map-get($display-breakpoints, 'md-and-up')} {
-	.search-box-col{
-		width: 50%;
+	.search-box{
+		grid-column: span 6;
 	}
-	.other-filters{
-		width: 50%;
+	.region-select{
+		grid-column: span 3;
+	}
+	.sort-btn{
+		grid-column: span 3;
 	}
 }
 
 @media #{map-get($display-breakpoints, 'lg-and-up')} {
-	.search-box-col{
-		width: 50%;
+	.search-box{
+		grid-column: span 6;
 	}
-	.other-filters{
-		width: 40%;
+	.region-select{
+		grid-column: 9 / span 2;
 	}
-}
-
-@media #{map-get($display-breakpoints, 'xl-only')} {
-	.search-box-col{
-		width: 50%;
-	}
-	.other-filters{
-		width: 30%;
+	.sort-btn{
+		grid-column: span 2;
 	}
 }
 </style>
