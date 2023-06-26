@@ -1,6 +1,8 @@
 const icons = {
 	darkMode: 'mdi-weather-night',
 	lightMode: 'mdi-weather-sunny',
+	search: 'mdi-magnify',
+	asc: 'mdi-chevron-down'
 };
 
 export const strict = true;

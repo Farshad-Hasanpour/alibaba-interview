@@ -1,5 +1,32 @@
 <template>
 	<div>
+		<div class="filter-box">
+			<div class="search-box">
+				<CIcon :name="$store.state.icons.search"/>
+				<input
+						v-model="filter.query"
+						type="search"
+						inputmode="search"
+						placeholder="Search for a country"
+						class="search-box__input"
+				>
+			</div>
+
+			<div class="select-box">
+				<select v-model="filter.region" name="region" class="region-select">
+					<option :value="null">Filter by Region</option>
+					<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
+				</select>
+				<button class="sort-btn normal" @click="toggleSort">
+					<span class="sort-btn__name">{{sort.field}}</span>
+					<CIcon
+							:name="$store.state.icons.asc"
+							color="var(--color-input)"
+							:class="{'reverse': sort.type !== 'ASC'}"
+					/>
+				</button>
+			</div>
+		</div>
 		<pre>{{ shownCountries }}</pre>
 	</div>
 </template>
@@ -76,6 +103,75 @@ export default {
 
 			return result
 		}
+	},
+	methods: {
+		toggleSort(){
+			if(this.sort.type === 'ASC'){
+				this.sort.type = 'DEC';
+				return;
+			}
+			if(this.sort.field === 'name') this.sort.field = 'population';
+			else this.sort.field = 'name';
+			this.sort.type = 'ASC';
+		}
 	}
 }
 </script>
+
+<style scoped lang="scss">
+$input-pad-h: 12px;
+$input-h: 42px;
+
+.filter-box{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 16px;
+}
+
+.search-box{
+	background-color: var(--color-element);
+	display: flex;
+	align-items: center;
+	height: $input-h;
+	width: 100%;
+	margin-bottom: 16px;
+	border-radius: 4px;
+	overflow: hidden;
+	padding-left: $input-pad-h;
+	padding-right: $input-pad-h;
+	color: var(--color-input);
+}
+.search-box__input{
+	height: 100%;
+	flex-grow: 1;
+	padding-left: $input-pad-h;
+	padding-right: $input-pad-h;
+}
+
+.select-box{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+	height: $input-h;
+}
+
+.region-select{
+	width: 100%;
+	height: $input-h;
+	padding-left: $input-pad-h;
+	padding-right: $input-pad-h;
+	margin-bottom: 16px;
+}
+
+.sort-btn{
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 16px;
+}
+.sort-btn__name{
+	margin-inline-end: 8px;
+	color: var(--color-input);
+}
+</style>

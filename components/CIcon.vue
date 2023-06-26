@@ -6,7 +6,8 @@
 export default {
 	name: "CIcon",
 	props: {
-		name: { required: true, type: String }
+		name: { required: true, type: String },
+		color: { required: false, default: null, type: String }
 	}
 }
 </script>
@@ -20,5 +21,7 @@ export default {
 		align-items: center;
 		justify-content: center;
 		font-size: 24px;
+		transition: transform .3s;
+		color: v-bind(color);
 	}
 </style>
