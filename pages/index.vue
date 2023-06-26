@@ -133,9 +133,9 @@ export default {
 				// filter by search term
 				return !(
 					searchChars?.length &&
-					!termHasAllCharsOrderWise(country.name.common?.toLowerCase() || '', searchChars) &&
-					!termHasAllCharsOrderWise(country.name.official?.toLowerCase() || '', searchChars) &&
-					!termHasAllCharsOrderWise(country.name.nativeName?.toLowerCase() || '', searchChars)
+					!termHasAllCharsOrderWise(country.name.common?.toLowerCase() || '', searchChars)
+					// !termHasAllCharsOrderWise(country.name.official?.toLowerCase() || '', searchChars) &&
+					// !termHasAllCharsOrderWise(country.name.nativeName?.toLowerCase() || '', searchChars)
 				)
 			});
 
