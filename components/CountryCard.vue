@@ -1,28 +1,26 @@
 <template>
-	<nuxt-link v-wave :to="`/countries/${country.cca3}`" :draggable="false">
-		<div class="country">
-			<img
-					ref="flagImage"
-					class="country__flag"
-					:src="require('@/assets/img/flag-placeholder.png')"
-					:data-main-src="country.flag.src"
-					:alt="country.flag.alt || ''"
-					:draggable="false"
-			>
-			<div class="country-details">
-				<h3 class="country-details__name">{{ country.name.common }}</h3>
-				<div v-for="field in fields" :key="field" class="country-fields">
-					<span class="country-fields__title">{{ field }}: </span>
-					<span class="country-fields__value">
-						{{
-							!country[field]
-								? 'N/A'
-								: typeof country[field] !== 'number'
-									? country[field]
-									: country[field].toLocaleString()
-						}}
-					</span>
-				</div>
+	<nuxt-link v-wave class="country" :to="`/countries/${country.cca3}`" :draggable="false">
+		<img
+				ref="flagImage"
+				class="country__flag"
+				:src="require('@/assets/img/flag-placeholder.png')"
+				:data-main-src="country.flag.src"
+				:alt="country.flag.alt || ''"
+				:draggable="false"
+		>
+		<div class="country-details">
+			<h3 class="country-details__name">{{ country.name.common }}</h3>
+			<div v-for="field in fields" :key="field" class="country-fields">
+				<span class="country-fields__title">{{ field }}: </span>
+				<span class="country-fields__value">
+					{{
+						!country[field]
+							? 'N/A'
+							: typeof country[field] !== 'number'
+								? country[field]
+								: country[field].toLocaleString()
+					}}
+				</span>
 			</div>
 		</div>
 	</nuxt-link>
