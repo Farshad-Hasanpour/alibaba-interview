@@ -7,6 +7,7 @@
 					:src="require('@/assets/img/flag-placeholder.png')"
 					:data-main-src="country.flag.src"
 					:alt="country.flag.alt || ''"
+					:draggable="false"
 			>
 			<div class="country-details">
 				<h3 class="country-details__name">{{ country.name.common }}</h3>
