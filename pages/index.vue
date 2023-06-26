@@ -47,6 +47,7 @@
 		</div>
 		<div class="country-list">
 			<CountryCard
+					ref="countryCard"
 					v-for="country in shownCountries"
 					:key="country.cca3"
 					:country="country"
@@ -57,6 +58,7 @@
 </template>
 
 <script>
+let flagLazyLoadObserver = null;
 
 function termHasAllCharsOrderWise(term, charSet){
 	let previousCharIndex = 0;
@@ -101,6 +103,23 @@ export default {
 			});
 		}
 	},
+	mounted(){
+		flagLazyLoadObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if(!entry.isIntersecting) return;
+				const mainSrc = entry.target.getAttribute('data-main-src');
+				// disable observer for post cards that have already loaded the high quality image featured image
+				if(!mainSrc) {
+					flagLazyLoadObserver.unobserve(entry.target);
+					return;
+				}
+				// if post image is visited replace low quality image with high quality image
+				entry.target.setAttribute('src', mainSrc);
+				entry.target.removeAttribute('data-main-src');
+				flagLazyLoadObserver.unobserve(entry.target);
+			})
+		});
+	},
 	watch: {
 		"filter.region"(){
 			this.updateURLQueries()
@@ -114,6 +133,21 @@ export default {
 		"sort.type"(){
 			this.updateURLQueries()
 		},
+		shownCountries: {
+			immediate: true,
+			handler(){
+				// wait for countries to be mounted
+				this.$nextTick(() => {
+					// get mounted countries
+					const countryCardsRef = this.$refs.countryCard;
+					if(!countryCardsRef) return;
+					// activate image lazy load for each mounted country card
+					countryCardsRef.forEach(countryCard => {
+						flagLazyLoadObserver.observe(countryCard.$refs.flagImage);
+					});
+				})
+			}
+		}
 	},
 	computed:{
 		allRegions(){

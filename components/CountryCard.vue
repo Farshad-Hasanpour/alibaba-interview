@@ -1,7 +1,13 @@
 <template>
-	<nuxt-link :to="`/countries/${country.cca3}`" :draggable="false">
+	<nuxt-link v-wave :to="`/countries/${country.cca3}`" :draggable="false">
 		<div class="country">
-			<img class="country__flag" :src="country.flag.src" :alt="country.flag.alt">
+			<img
+					ref="flagImage"
+					class="country__flag"
+					:src="require('@/assets/img/flag-placeholder.png')"
+					:data-main-src="country.flag.src"
+					:alt="country.flag.alt || ''"
+			>
 			<div class="country-details">
 				<h3 class="country-details__name">{{ country.name.common }}</h3>
 				<div v-for="field in fields" :key="field" class="country-fields">
