@@ -2,14 +2,14 @@
 	<div class="container">
 		<div class="filter-box">
 			<div class="search-box">
-				<CIcon :name="$store.state.icons.search" />
+				<c-icon :name="$store.state.icons.search" />
 				<input
 						v-model="filter.search"
 						inputmode="search"
 						placeholder="Search for a country"
 						class="search-box__input"
 				>
-				<CIcon
+				<c-icon
 						v-show="filter.search"
 						:name="$store.state.icons.close"
 						color="var(--color-input)"
@@ -23,14 +23,14 @@
 					<option :value="null">Filter by Region</option>
 					<option v-for="region in allRegions" :key="region" :value="region">{{ region }}</option>
 				</select>
-				<CIcon
+				<c-icon
 						v-show="filter.region"
 						:name="$store.state.icons.close"
 						color="var(--color-input)"
 						class="region-select__close cursor-pointer"
 						@click.stop="filter.region = null"
 				/>
-				<CIcon
+				<c-icon
 						:name="$store.state.icons.asc"
 						color="var(--color-input)"
 						class="region-select__icon cursor-pointer"
@@ -38,7 +38,7 @@
 			</div>
 			<button v-wave type="button" class="sort-btn normal" @click.stop="toggleSort">
 				<span class="sort-btn__name">sort: {{ sort.field }}</span>
-				<CIcon
+				<c-icon
 						:name="$store.state.icons.asc"
 						color="var(--color-input)"
 						:class="{'reverse': sort.type !== 'ASC'}"
@@ -46,7 +46,7 @@
 			</button>
 		</div>
 		<div class="country-list">
-			<CountryCard
+			<country-card
 					v-for="country in paginatedCountries"
 					:key="country.cca3"
 					ref="countryCard"
@@ -261,15 +261,16 @@ $input-h: 42px;
 .filter-box,
 .country-list{
 	width: 100%;
-	padding: 16px;
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
 }
 .filter-box{
 	grid-gap: 16px;
+	padding: 32px 16px 16px;
 }
 .country-list{
 	grid-gap: 42px;
+	padding: 16px;
 }
 
 .country-card{

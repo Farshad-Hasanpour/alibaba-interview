@@ -5,7 +5,7 @@
 		</nuxt-link>
 
 		<button v-wave type="button" class="normal" @click="$store.commit('toggleDarkMode')">
-			<CIcon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
+			<c-icon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
 			<span>{{ $store.state.isDark ? 'Light Mode' : 'Dark Mode' }}</span>
 		</button>
 	</header>

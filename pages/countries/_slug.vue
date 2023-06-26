@@ -3,7 +3,7 @@
 		<nav class="navigation">
 			<nuxt-link to="/" class="back-link" :draggable="false">
 				<button v-wave type="button" class="back-btn normal">
-					<CIcon
+					<c-icon
 							:name="$store.state.icons.back"
 							color="var(--color-text)"
 					/>
