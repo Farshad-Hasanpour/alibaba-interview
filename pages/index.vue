@@ -97,6 +97,20 @@ export default {
 			});
 		}
 	},
+	watch: {
+		"filter.region"(){
+			this.updateURLQueries()
+		},
+		"filter.search"(){
+			this.updateURLQueries()
+		},
+		"sort.field"(){
+			this.updateURLQueries()
+		},
+		"sort.type"(){
+			this.updateURLQueries()
+		},
+	},
 	computed:{
 		allRegions(){
 			return Array.from(
@@ -145,6 +159,20 @@ export default {
 			if(this.sort.field === 'name') this.sort.field = 'population';
 			else this.sort.field = 'name';
 			this.sort.type = 'ASC';
+		},
+		updateURLQueries(){
+			const { query } = this.$router.currentRoute;
+			query.sort_type = this.sort.type;
+			query.sort_field = this.sort.field;
+			query.region = this.filter.region;
+			query.search = this.filter.search;
+
+			const params = '?' + Object.entries(query)
+				.filter(item => item[1])
+				.map(item => item.join('='))
+				.join('&');
+
+			history.replaceState({}, null, window.location.origin + params)
 		}
 	}
 }
