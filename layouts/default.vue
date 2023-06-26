@@ -6,8 +6,11 @@
 </template>
 
 <script>
+import colorScheme from "@/mixins/color-scheme";
+
 export default {
 	name: "Default",
+	mixins: [colorScheme]
 }
 </script>
 
