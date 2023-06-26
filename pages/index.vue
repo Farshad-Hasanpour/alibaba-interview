@@ -7,11 +7,28 @@
 <script>
 export default {
 	name: 'IndexPage',
-	async asyncData({ error, $countryService }){
+	async asyncData({ error, query, $countryService }){
+		const {
+			region,
+			sort_field: sortField,
+			sort_type: sortType,
+			search
+		} = query;
+
+		//TODO: !! better to validate queries
+
 		try{
 			const allCountries = await $countryService.getAllCountries();
 			return {
-				allCountries
+				allCountries,
+				filter: {
+					region: region || null,
+					query: search || ''
+				},
+				sort: {
+					field: sortField || 'name',
+					type: sortType || 'ASC'
+				}
 			};
 		}catch(err){
 			if(process.env.NODE_ENV === 'development') console.error(err);
@@ -58,19 +75,6 @@ export default {
 			})
 
 			return result
-		}
-	},
-	data(){
-		return {
-			allCountries: [],
-			sort: {
-				field: 'name',
-				type: 'ASC'
-			},
-			filter: {
-				region: 'Africa',
-				query: ''
-			}
 		}
 	}
 }
