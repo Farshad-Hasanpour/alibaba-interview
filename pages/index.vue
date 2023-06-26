@@ -67,8 +67,8 @@ let autoPaginationObserver = null;
 function termHasAllCharsOrderWise(term, charSet){
 	let previousCharIndex = 0;
 	for(let i = 0; i < charSet.length; i++){
-		const indexOfChar = term.indexOf(charSet[i]);
-		if(indexOfChar < previousCharIndex) return false;
+		const indexOfChar = term.slice(previousCharIndex, term.length).indexOf(charSet[i]);
+		if(indexOfChar < 0) return false;
 		previousCharIndex = indexOfChar + 1;
 	}
 	return true;
