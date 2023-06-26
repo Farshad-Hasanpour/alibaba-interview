@@ -1,11 +1,11 @@
 <template>
-	<div class="top-bar">
+	<header class="top-bar">
 		<h1 class="top-bar__title">Where in the world?</h1>
 		<button v-wave class="top-bar__theme normal" @click="$store.commit('toggleDarkMode')">
 			<CIcon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode"/>
 			<span>{{ $store.state.isDark ? 'Light Mode' : 'Dark Mode' }}</span>
 		</button>
-	</div>
+	</header>
 </template>
 
 <script>
