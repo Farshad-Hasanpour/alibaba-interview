@@ -3,7 +3,8 @@ const icons = {
 	lightMode: 'mdi-weather-sunny',
 	search: 'mdi-magnify',
 	asc: 'mdi-chevron-down',
-	close: 'mdi-close'
+	close: 'mdi-close',
+	back: 'mdi-arrow-left'
 };
 
 export const strict = true;

@@ -1,5 +1,16 @@
 <template>
-	<div>
+	<div class="container">
+		<nav class="navigation">
+			<nuxt-link to="/">
+				<button v-wave type="button" class="back-btn normal">
+					<CIcon
+							:name="$store.state.icons.back"
+							color="var(--color-input)"
+					/>
+					<span class="back-btn__text">Back</span>
+				</button>
+			</nuxt-link>
+		</nav>
 		{{ country }}
 	</div>
 </template>
@@ -32,5 +43,13 @@ export default {
 </script>
 
 <style scoped>
-
+	.navigation{
+		width: 100%;
+		padding: 64px 16px;
+	}
+	.back-btn__text{
+		color: var(--color-input);
+		padding-left: 8px;
+		padding-right: 8px;
+	}
 </style>

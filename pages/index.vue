@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="filter-box">
 			<div class="search-box">
-				<CIcon :name="$store.state.icons.search"/>
+				<CIcon :name="$store.state.icons.search" />
 				<input
 						v-model="filter.search"
 						inputmode="search"
@@ -21,7 +21,7 @@
 				<!-- TODO: A customized select component would be better -->
 				<select v-model="filter.region" name="region" class="region-select__input cursor-pointer">
 					<option :value="null">Filter by Region</option>
-					<option v-for="region in allRegions" :key="region" :value="region">{{region}}</option>
+					<option v-for="region in allRegions" :key="region" :value="region">{{ region }}</option>
 				</select>
 				<CIcon
 						v-show="filter.region"
@@ -36,8 +36,8 @@
 						class="region-select__icon cursor-pointer"
 				/>
 			</div>
-			<button v-wave class="sort-btn normal" @click.stop="toggleSort">
-				<span class="sort-btn__name">sort: {{sort.field}}</span>
+			<button v-wave type="button" class="sort-btn normal" @click.stop="toggleSort">
+				<span class="sort-btn__name">sort: {{ sort.field }}</span>
 				<CIcon
 						:name="$store.state.icons.asc"
 						color="var(--color-input)"
@@ -47,13 +47,16 @@
 		</div>
 		<div class="country-list">
 			<CountryCard
-					ref="countryCard"
 					v-for="country in paginatedCountries"
 					:key="country.cca3"
+					ref="countryCard"
 					:country="country"
 					class="country-card"
 			/>
 		</div>
+		<p v-show="!paginatedCountries.length" class="no-country">
+			no country is matched with specified filters
+		</p>
 		<div ref="autoPagination" class="auto-pagination" />
 	</div>
 </template>
@@ -105,72 +108,10 @@ export default {
 			});
 		}
 	},
-	mounted(){
-		flagLazyLoadObserver = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if(!entry.isIntersecting) return;
-				const mainSrc = entry.target.getAttribute('data-main-src');
-				// disable observer for post cards that have already loaded the high quality image featured image
-				if(!mainSrc) {
-					flagLazyLoadObserver.unobserve(entry.target);
-					return;
-				}
-				// if post image is visited replace low quality image with high quality image
-				entry.target.setAttribute('src', mainSrc);
-				entry.target.removeAttribute('data-main-src');
-				flagLazyLoadObserver.unobserve(entry.target);
-			})
-		});
-
-		// observer for auto pagination
-		autoPaginationObserver = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if(!entry.isIntersecting) return;
-				this.$nextTick(() => {
-					this.page = this.page + 1;
-				})
-			})
-		});
-		autoPaginationObserver.observe(this.$refs.autoPagination);
-	},
-	beforeDestroy(){
-		//unobserve
-		this.$refs.countryCard.forEach(countryCard => {
-			flagLazyLoadObserver.unobserve(countryCard.$refs.flagImage);
-		});
-		autoPaginationObserver.unobserve(this.$refs.autoPagination);
-	},
-	watch: {
-		"filter.region"(){
-			this.page = 1;
-			this.updateURLQueries()
-		},
-		"filter.search"(){
-			this.page = 1;
-			this.updateURLQueries()
-		},
-		"sort.field"(){
-			this.page = 1;
-			this.updateURLQueries()
-		},
-		"sort.type"(){
-			this.page = 1;
-			this.updateURLQueries()
-		},
-		paginatedCountries: {
-			immediate: true,
-			handler(){
-				// wait for countries to be mounted
-				this.$nextTick(() => {
-					// get mounted countries
-					const countryCardsRef = this.$refs.countryCard;
-					if(!countryCardsRef) return;
-					// activate image lazy load for each mounted country card
-					countryCardsRef.forEach(countryCard => {
-						flagLazyLoadObserver.observe(countryCard.$refs.flagImage);
-					});
-				})
-			}
+	data(){
+		return{
+			page: 1,
+			perPage: 12 // It's better to be divisible by 2, 3 and 4 (number of countries per row in various screens)
 		}
 	},
 	computed:{
@@ -215,11 +156,73 @@ export default {
 			return this.shownCountries.slice(0, this.page * this.perPage)
 		}
 	},
-	data(){
-		return{
-			page: 1,
-			perPage: 12 // It's better to be divisible by 2, 3 and 4 (number of countries per row in various screens)
+	watch: {
+		"filter.region"(){
+			this.page = 1;
+			this.updateURLQueries()
+		},
+		"filter.search"(){
+			this.page = 1;
+			this.updateURLQueries()
+		},
+		"sort.field"(){
+			this.page = 1;
+			this.updateURLQueries()
+		},
+		"sort.type"(){
+			this.page = 1;
+			this.updateURLQueries()
+		},
+		paginatedCountries: {
+			immediate: true,
+			handler(){
+				// wait for countries to be mounted
+				this.$nextTick(() => {
+					// get mounted countries
+					const countryCardsRef = this.$refs.countryCard;
+					if(!countryCardsRef) return;
+					// activate image lazy load for each mounted country card
+					countryCardsRef.forEach(countryCard => {
+						flagLazyLoadObserver.observe(countryCard.$refs.flagImage);
+					});
+				})
+			}
 		}
+	},
+	mounted(){
+		flagLazyLoadObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if(!entry.isIntersecting) return;
+				const mainSrc = entry.target.getAttribute('data-main-src');
+				// disable observer for post cards that have already loaded the high quality image featured image
+				if(!mainSrc) {
+					flagLazyLoadObserver.unobserve(entry.target);
+					return;
+				}
+				// if post image is visited replace low quality image with high quality image
+				entry.target.setAttribute('src', mainSrc);
+				entry.target.removeAttribute('data-main-src');
+				flagLazyLoadObserver.unobserve(entry.target);
+			})
+		});
+
+		// observer for auto pagination
+		autoPaginationObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if(!entry.isIntersecting) return;
+				this.$nextTick(() => {
+					this.page = this.page + 1;
+				})
+			})
+		});
+		autoPaginationObserver.observe(this.$refs.autoPagination);
+	},
+	beforeDestroy(){
+		//unobserve
+		this.$refs.countryCard.forEach(countryCard => {
+			flagLazyLoadObserver.unobserve(countryCard.$refs.flagImage);
+		});
+		autoPaginationObserver.unobserve(this.$refs.autoPagination);
 	},
 	methods: {
 		toggleSort(){
@@ -340,6 +343,13 @@ $input-h: 42px;
 .auto-pagination{
 	width: 100%;
 	height: 12px;
+}
+
+.no-country{
+	width: 100%;
+	text-align: center;
+	text-transform: capitalize;
+	font-size: 18px;
 }
 
 @media #{map-get($display-breakpoints, 'sm-and-up')} {
