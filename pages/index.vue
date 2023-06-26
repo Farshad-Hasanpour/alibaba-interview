@@ -51,7 +51,6 @@
 					:key="country.cca3"
 					ref="countryCard"
 					:country="country"
-					class="country-card"
 			/>
 		</div>
 		<p v-show="!paginatedCountries.length" class="no-country">
@@ -262,19 +261,16 @@ $input-h: 42px;
 .country-list{
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(12, 1fr);
 }
 .filter-box{
 	grid-gap: 16px;
 	padding: 32px 16px 16px;
+	grid-template-columns: repeat(12, 1fr);
 }
 .country-list{
 	grid-gap: 42px;
 	padding: 16px;
-}
-
-.country-card{
-	grid-column: span 12;
+	grid-template-columns: repeat(1, 1fr);
 }
 
 .search-box{
@@ -354,8 +350,8 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'sm-and-up')} {
-	.country-card{
-		grid-column: span 6;
+	.country-list{
+		grid-template-columns: repeat(2, 1fr);
 	}
 	.region-select{
 		grid-column: span 6;
@@ -366,8 +362,8 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'md-and-up')} {
-	.country-card{
-		grid-column: span 4;
+	.country-list{
+		grid-template-columns: repeat(3, 1fr);
 	}
 	.search-box{
 		grid-column: span 6;
@@ -381,8 +377,8 @@ $input-h: 42px;
 }
 
 @media #{map-get($display-breakpoints, 'lg-and-up')} {
-	.country-card{
-		grid-column: span 3;
+	.country-list{
+		grid-template-columns: repeat(4, 1fr);
 	}
 	.search-box{
 		grid-column: span 6;
