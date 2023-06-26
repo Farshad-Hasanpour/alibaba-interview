@@ -12,7 +12,7 @@ export default function($axios) {
 			)
 		},
 		getCountryDetails({
-			fields = 'cca3,name,population,region,subregion,capital,flags,tld,borders',
+			fields = 'cca3,name,population,region,subregion,capital,flags,tld,borders,languages,currencies',
 			code = ''
 		} = {}){
 			if(!code) throw new Error('code is required');
@@ -29,7 +29,16 @@ export default function($axios) {
 				const langCodes = Object.keys(country.name.nativeName);
 				country.name.nativeName = !langCodes.length ? null : country.name.nativeName[langCodes[0]].common
 			}
+
 			if(country.capital) country.capital = !country.capital[0] ? 'N/A' : country.capital[0]
+
+			if(country.languages) country.languages = Object.values(country.languages).join(', ');
+
+			if(country.tld) country.tld = Object.values(country.tld).join(', ');
+
+			if(country.currencies){
+				country.currencies = Object.values(country.currencies).map(currency => currency.name).join(', ')
+			}
 
 			if(country.borders && country.borders.length){
 				country.borders = await this.getCountryNames({ codes: country.borders.join(',') })

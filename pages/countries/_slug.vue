@@ -57,6 +57,24 @@ export default {
 			});
 		}
 	},
+	computed: {
+		primaryFields(){
+			return [
+				{ name: ['name', 'nativeName'], title: 'Native Name' },
+				{ name: ['population'], title: 'Population' },
+				{ name: ['region'], title: 'Region' },
+				{ name: ['subregion'], title: 'Subregion' },
+				{ name: ['capital'], title: 'Capital' },
+			]
+		},
+		secondaryFields(){
+			return [
+				{ name: ['tld'], title: 'Top Level Domains' },
+				{ name: ['currencies'], title: 'Currencies' },
+				{ name: ['languages'], title: 'Languages' },
+			]
+		}
+	},
 	data(){
 		return {
 			country: {}
