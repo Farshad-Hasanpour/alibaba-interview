@@ -1,13 +1,24 @@
 <template>
 	<header class="top-bar">
 		<nuxt-link to="/" :draggable="false">
-			<h1 class="title-text">where in the world?</h1>
+			<h1 class="title-text">Where in the World?</h1>
 		</nuxt-link>
 
-		<button v-wave type="button" class="normal" @click="$store.commit('toggleDarkMode')">
-			<c-icon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
-			<span>{{ $store.state.isDark ? 'Light Mode' : 'Dark Mode' }}</span>
-		</button>
+		<div class="actions">
+			<button v-wave type="button" class="normal" @click="$store.commit('toggleDarkMode')">
+				<CIcon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
+			</button>
+			<a
+					class="github"
+					href="https://github.com/Farshad-Hasanpour/nuxt-country-search"
+					target="_blank"
+					rel="noopener"
+			>
+				<button v-wave type="button" class="normal">
+					<CIcon :name="$store.state.icons.github" />
+				</button>
+			</a>
+		</div>
 	</header>
 </template>
 
@@ -30,11 +41,19 @@ export default {
 		background-color: var(--color-element);
 	}
 
+	.github{
+		color: var(--color-text);
+	}
+
+	.actions{
+		display: flex;
+		align-items: center;
+	}
+
 	.title-text{
 		font-size: 16px;
 		font-weight: 600;
 		margin: 0;
-		text-transform: capitalize;
 		color: var(--color-text)
 	}
 

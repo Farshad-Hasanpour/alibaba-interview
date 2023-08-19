@@ -4,7 +4,8 @@ const icons = {
 	search: 'mdi-magnify',
 	asc: 'mdi-chevron-down',
 	close: 'mdi-close',
-	back: 'mdi-arrow-left'
+	back: 'mdi-arrow-left',
+	github: 'mdi-github'
 };
 
 export const strict = true;
