@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="header-back">
 		<page-header />
 		<Nuxt />
 	</div>

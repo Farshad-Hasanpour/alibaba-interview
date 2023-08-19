@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container header-back">
 		<p class="status">{{ errorCode }}</p>
 		<p>{{ errorMessage }}</p>
 		<nuxt-link to="/" :draggable="false">Home Page</nuxt-link>

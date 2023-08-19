@@ -39,6 +39,12 @@ export default {
 		padding-left: 4px;
 		padding-right: 4px;
 		background-color: var(--color-element);
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		z-index: 1000;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	}
 
 	.github{
