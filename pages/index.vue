@@ -95,8 +95,8 @@ export default {
 					search: search || ''
 				},
 				sort: {
-					field: sortField || 'name',
-					type: sortType || 'ASC'
+					field: sortField || 'population',
+					type: sortType || 'DEC'
 				}
 			};
 		}catch(err){

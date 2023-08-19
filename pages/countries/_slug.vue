@@ -42,8 +42,9 @@
 							:key="border.cca3"
 							:to="`/countries/${border.cca3}`"
 							:draggable="false"
+							class="border-btn"
 					>
-						<button type="button" class="border-btn normal">
+						<button type="button" class="normal">
 							{{ border.name }}
 						</button>
 					</nuxt-link>

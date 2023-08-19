@@ -6,7 +6,7 @@
 
 		<div class="actions">
 			<button v-wave type="button" class="normal" @click="$store.commit('toggleDarkMode')">
-				<CIcon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
+				<c-icon :name="$store.state.isDark ? $store.state.icons.lightMode : $store.state.icons.darkMode" />
 			</button>
 			<a
 					class="github"
@@ -15,7 +15,7 @@
 					rel="noopener"
 			>
 				<button v-wave type="button" class="normal">
-					<CIcon :name="$store.state.icons.github" />
+					<c-icon :name="$store.state.icons.github" />
 				</button>
 			</a>
 		</div>
