@@ -4,7 +4,7 @@ export default {
 	},
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'alibaba-interview',
+		title: 'Where in the World',
 		htmlAttrs: {
 			lang: 'en'
 		},
@@ -39,7 +39,8 @@ export default {
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
 		'@nuxtjs/eslint-module',
-		'@nuxtjs/google-fonts'
+		'@nuxtjs/google-fonts',
+		'@nuxtjs/pwa',
 	],
 
 	googleFonts: {
@@ -57,6 +58,22 @@ export default {
 		'@nuxtjs/axios',
 		'v-wave/nuxt'
 	],
+
+	pwa: {
+		icon: {
+			purpose: 'any'
+		},
+		meta:{
+			lang: 'en',
+			theme_color: '#333'
+		},
+		manifest: {
+			dir: 'ltr',
+			lang: 'en',
+		},
+		workbox: false, // service worker
+		oneSignal: false, //push notification
+	},
 
 	loading: {
 		color: '#00b38c',
