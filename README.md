@@ -1,4 +1,4 @@
-# alibaba-interview
+# where-in-the-world
 
 ## Build Setup
 
@@ -21,17 +21,14 @@ $ npm run test
 ```
 
 ## Demo
-A demo is available in [https://alibaba.codewanted.net/](https://alibaba.codewanted.net/)
+A demo is available in [https://whereintheworld.ir/](https://whereintheworld.ir/)
 
 ## Environment
-Application was tested by Node `16.18.0` and had not any error. 
-
-## Bonus Tasks
-All Bonus tasks except the one that requires a Dockerfile are done.
+Application was tested by Node `16.18.0` and had not any error.
 
 ## Styling
 Styles are solely created by SCSS and CSS. No UI library is used.
 
 ## Contact
-Farshad Hasanpour\
+Farshad Hasanpour
 [farshad.hasanpour96@gmail.com](mailto:farshad.hasanpour96@gmail.com)
