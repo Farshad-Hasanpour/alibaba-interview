@@ -17,7 +17,7 @@
 		"Lazy Loading",
 		"SASS",
 		"Jest",
-		"Component Test"
+		"Component Testing"
 	],
 	"scripts": {
 		"dev": "nuxt",
