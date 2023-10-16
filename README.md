@@ -20,6 +20,13 @@ $ npm run generate
 $ npm run test
 ```
 
+## required to deploy in the web server:
+- package.json
+- package-lock.json
+- nuxt.config.js
+- .nuxt/
+- static/
+
 ## Demo
 A demo is available in [https://whereintheworld.ir/](https://whereintheworld.ir/)
 
