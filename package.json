@@ -5,10 +5,20 @@
 	"Author": "Farshad Hasanpour",
 	"license": "MIT",
 	"description": "An nuxt 2 web app to search information about countries.",
+	"homepage": "https://whereintheworld.ir",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Farshad-Hasanpour/where-in-the-world.git"
 	},
+	"keywords": [
+		"Nuxt",
+		"SSR",
+		"PWA",
+		"Lazy Loading",
+		"SASS",
+		"Jest",
+		"Component Test"
+	],
 	"scripts": {
 		"dev": "nuxt",
 		"build": "nuxt build",
